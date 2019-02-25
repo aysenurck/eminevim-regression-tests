@@ -21,8 +21,10 @@ public class ChromeDriverManagerWeb extends DriverManager {
         desiredCapabilities = desiredCapabilities(withProxy, chromeOptions);
 
         if (Platform.getCurrent().is(Platform.MAC)) {
+            logger.info("webdriver.chrome.driver --> " + prop.getProperty("mac.chrome.driver"));
             System.setProperty("webdriver.chrome.driver", prop.getProperty("mac.chrome.driver"));
         } else if (Platform.getCurrent().is(Platform.WINDOWS)) {
+            logger.info("webdriver.chrome.driver --> " + prop.getProperty("windows.chrome.driver"));
             System.setProperty("webdriver.chrome.driver", prop.getProperty("windows.chrome.driver"));
         }
 
