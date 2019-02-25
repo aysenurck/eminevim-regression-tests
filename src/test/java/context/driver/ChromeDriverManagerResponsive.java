@@ -29,10 +29,12 @@ public class ChromeDriverManagerResponsive extends DriverManager {
         chromeOptions = chromeOptions(mobileEmulation);
         desiredCapabilities = desiredCapabilities(withProxy, chromeOptions);
 
+        String driverPath = System.getProperty("user.dir") + "/drivers/chromedriver.exe";
+
         if (Platform.getCurrent().is(Platform.MAC)) {
             System.setProperty("webdriver.chrome.driver", prop.getProperty("mac.chrome.driver"));
         } else if (Platform.getCurrent().is(Platform.WINDOWS)) {
-            System.setProperty("webdriver.chrome.driver", prop.getProperty("windows.chrome.driver"));
+            System.setProperty("webdriver.chrome.driver", driverPath);
         }
 
         logger.info("This test is local execute ...");
