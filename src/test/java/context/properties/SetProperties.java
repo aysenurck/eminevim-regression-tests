@@ -29,9 +29,9 @@ public class SetProperties {
         if (Boolean.parseBoolean(System.getProperty("execute.local"))) {
             prop.setProperty("windows.chrome.driver", System.getProperty("user.dir") + "\\drivers\\chromedriver.exe");
         } else if (Boolean.parseBoolean(System.getProperty("execute.local"))) {
-            prop.setProperty("windows.chrome.driver", System.getProperty("user.home") + System.getProperty("driver.path"));
+            prop.setProperty("windows.chrome.driver", System.getProperty("jenkins.workspace") + System.getProperty("driver.path"));
         }
-        
+
         prop.setProperty("mac.chrome.driver", System.getProperty("user.dir") + "\\drivers\\chromedriver");
         prop.setProperty("implicitly.wait", "30");
         prop.setProperty("wait.timeout.seconds", "30");
