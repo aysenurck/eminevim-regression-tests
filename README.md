@@ -1,11 +1,7 @@
-# nyxcosmetics
+# eminevim
 
 - Parameters
 
--DRemoteTest=true
--DBrowserType=chrome
--DUsername=tunpekar1
--DAutomateKey=FPqXDFz4bqk1jvqXDZ3d
--Djetty.port=8090
--DExecCommandByJenkins=false
--DTakeVideo=false
+-Dbase.url=test.eminevim.com.tr
+-Dbrowser.type=chrome
+-Dtake.a.video=false

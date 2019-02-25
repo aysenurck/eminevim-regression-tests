@@ -28,7 +28,7 @@ public abstract class AbstractResponsiveTest extends AbstractLayoutDesignTest
     public final TestName testName = new TestName();
 
     @Rule
-    public ReportGenerate screenShootRule = new ReportGenerate();
+    public ReportGenerate reportGenerate = new ReportGenerate();
 
     @Override
     protected void createDriver(Boolean withProxy)
@@ -55,8 +55,6 @@ public abstract class AbstractResponsiveTest extends AbstractLayoutDesignTest
 
         if (withProxy)
         {
-            Runtime.getRuntime().exec("browserstacklocal/BrowserStackLocal --key " + System.getProperty("access.key"));
-
             proxy = new BrowserMobProxyServer();
             proxy.start();
             proxy.enableHarCaptureTypes(CaptureType.REQUEST_BINARY_CONTENT);

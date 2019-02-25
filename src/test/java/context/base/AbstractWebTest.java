@@ -55,8 +55,6 @@ public abstract class AbstractWebTest extends AbstractLayoutDesignTest
 
         if (withProxy)
         {
-            Runtime.getRuntime().exec("browserstacklocal/BrowserStackLocal --key " + System.getProperty("access.key"));
-
             proxy = new BrowserMobProxyServer();
             proxy.start();
             proxy.enableHarCaptureTypes(CaptureType.REQUEST_BINARY_CONTENT);
@@ -86,7 +84,6 @@ public abstract class AbstractWebTest extends AbstractLayoutDesignTest
     public void tearDown() throws Exception
     {
         //setHarFile(testName.getMethodName());
-        takeVideo = Boolean.parseBoolean(prop.getProperty("take.a.video"));
 
         if (takeVideo) VideoRecorder.stopRecording();
 

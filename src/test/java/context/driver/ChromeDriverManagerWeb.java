@@ -1,6 +1,5 @@
 package context.driver;
 
-import com.browserstack.local.Local;
 import net.lightbody.bmp.client.ClientUtil;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Platform;
@@ -9,46 +8,26 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.URL;
-import java.util.HashMap;
-
-public class ChromeDriverManagerWeb extends DriverManager
-{
+public class ChromeDriverManagerWeb extends DriverManager {
     private Logger logger = Logger.getLogger(ChromeDriverManagerWeb.class);
 
     private ChromeOptions chromeOptions;
     private DesiredCapabilities desiredCapabilities;
-    private boolean remoteTest;
 
     @Override
-    public void createDriver(Boolean withProxy) throws Exception
-    {
-        remoteTest = Boolean.parseBoolean(System.getProperty("remote.test"));
-
+    public void createDriver(Boolean withProxy) throws Exception {
         chromeOptions = chromeOptions();
-        desiredCapabilities = desiredCapabilities(withProxy, remoteTest, chromeOptions);
+        desiredCapabilities = desiredCapabilities(withProxy, chromeOptions);
 
-        if (remoteTest)
-        {
-            logger.info("This test is browserstack execute ...");
-            driver = new RemoteWebDriver(new URL(prop.getProperty("browserstack.url")), desiredCapabilities);
+        if (Platform.getCurrent().is(Platform.MAC)) {
+            System.setProperty("webdriver.chrome.driver", prop.getProperty("mac.chrome.driver"));
+        } else if (Platform.getCurrent().is(Platform.WINDOWS)) {
+            System.setProperty("webdriver.chrome.driver", prop.getProperty("windows.chrome.driver"));
         }
-        else
-        {
-            if (Platform.getCurrent().is(Platform.MAC))
-            {
-                System.setProperty("webdriver.chrome.driver", prop.getProperty("mac.chrome.driver"));
-            }
-            else if (Platform.getCurrent().is(Platform.WINDOWS))
-            {
-                System.setProperty("webdriver.chrome.driver", prop.getProperty("windows.chrome.driver"));
-            }
-            
-            logger.info("This test is local execute ...");
-            driver = new ChromeDriver(desiredCapabilities);
-        }
+
+        logger.info("This test is local execute ...");
+        driver = new ChromeDriver(desiredCapabilities);
 
         session = (driver).getSessionId().toString();
         logger.info("=================================================================");
@@ -56,24 +35,14 @@ public class ChromeDriverManagerWeb extends DriverManager
         logger.info("=================================================================");
     }
 
-    private DesiredCapabilities desiredCapabilities(Boolean withProxy, Boolean browserStackLocal, ChromeOptions chromeOptions) throws Exception
-    {
+    private DesiredCapabilities desiredCapabilities(Boolean withProxy, ChromeOptions chromeOptions) throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //capabilities.setCapability("browser", "Chrome");
-        capabilities.setCapability("platform", "MAC");
 
-        if (withProxy)
-        {
+        if (withProxy) {
             Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
 
             String host = seleniumProxy.getHttpProxy().substring(0, seleniumProxy.getHttpProxy().indexOf(":"));
             String port = seleniumProxy.getHttpProxy().substring(seleniumProxy.getHttpProxy().indexOf(":") + 1);
-
-            if (browserStackLocal)
-            {
-                capabilities.setCapability("browserstack.local", browserStackLocal);
-                browserStackLocalArg(host, port);
-            }
 
             capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
 
@@ -88,27 +57,11 @@ public class ChromeDriverManagerWeb extends DriverManager
         return capabilities;
     }
 
-    private ChromeOptions chromeOptions()
-    {
+    private ChromeOptions chromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-infobars");
 
         return chromeOptions;
-    }
-
-    private void browserStackLocalArg(String host, String port) throws Exception
-    {
-        HashMap<String, String> browserStackLocalArgs = new HashMap<>();
-
-        Local browserStackLocal = new Local();
-        browserStackLocalArgs.put("key", System.getProperty("access.key"));
-        browserStackLocalArgs.put("forcelocal", "true");
-        browserStackLocalArgs.put("forceproxy", "true");
-        browserStackLocalArgs.put("force", "true");
-        browserStackLocalArgs.put("v", "true");
-        browserStackLocalArgs.put("-local-proxy-host", host);
-        browserStackLocalArgs.put("-local-proxy-port", port);
-        browserStackLocal.start(browserStackLocalArgs);
     }
 
 }
