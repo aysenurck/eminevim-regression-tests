@@ -26,7 +26,7 @@ public class SetProperties {
 
         output = new FileOutputStream(filePath.getAbsolutePath());
 
-        prop.setProperty("windows.chrome.driver", "\\drivers\\chromedriver.exe");
+        prop.setProperty("windows.chrome.driver", System.getProperty("user.dir") + "\\drivers\\chromedriver.exe");
         prop.setProperty("mac.chrome.driver", System.getProperty("user.dir") + "\\drivers\\chromedriver");
         prop.setProperty("implicitly.wait", "30");
         prop.setProperty("wait.timeout.seconds", "30");
