@@ -20,6 +20,8 @@ public class SetProperties {
         logger.info("take.a.video --> " + System.getProperties().getProperty("take.a.video"));
         logger.info("browser.type --> " + System.getProperties().getProperty("browser.type"));
         logger.info("base.url --> " + System.getProperties().getProperty("base.url"));
+        logger.info("user.home --> " + System.getProperties().getProperty("user.home"));
+        logger.info("user.dir --> " + System.getProperties().getProperty("user.dir"));
 
         Properties prop = new Properties();
         OutputStream output = null;
