@@ -16,21 +16,20 @@ public class MainPageWebPage extends PageObject
         super(driver);
     }
 
-    @FindBy(xpath = "(//div[@class='slick-track'])[1]/div//div[@class='pro-product-image-wrapper']//img[@class" +
-            "='visible -lazy-load-init']")
-    private List<WebElement> newestProducts;
+    @FindBy(id= "slider_form_input_1")
+    private WebElement CustomerName;
 
-    @FindBy(xpath = "(//a[@itemprop='item'])[1]")
-    private WebElement breadCrumb;
+    @FindBy(id = "slider_form_input_2")
+    private WebElement CustomerSurname;
 
-    @FindBy(xpath = "//div[@data-pro-product-info]")
-    private List<WebElement> productSalePrices;
+    @FindBy(id = "slider_form_input_3")
+    private WebElement CustomerTelephone;
 
-    @FindBy(xpath = "//iframe[contains(@name, 'fancybox-frame')]")
-    private WebElement mainPageFancyBoxIFrame;
+    @FindBy(css = "#slider_form_input_4")
+    private WebElement checkBox;
 
-    @FindBy(xpath = "//i[contains(@class, 'element-close-button')]")
-    private WebElement mainPageBeInformed;
+    @FindBy(linkText = "GÖNDER")
+    private WebElement senderButton;
 
     @FindBy(css = "[class='pro-product-image init-swipe'] img[data-src]")
     private List<WebElement> mainPageAllProduct;
@@ -42,43 +41,28 @@ public class MainPageWebPage extends PageObject
     private WebElement activeSliderImage;
 
 
-    public List<WebElement> getNewestProducts()
-    {
-        return newestProducts;
-    }
-
-    public WebElement getBreadCrumb()
-    {
-        return breadCrumb;
-    }
-
-    public List<WebElement> getProductSalePrices()
-    {
-        return productSalePrices;
-    }
-
-    public List<WebElement> getMainPageAllProduct()
-    {
-        return mainPageAllProduct;
-    }
-
-    public WebElement getMainPageFancyBoxIFrame()
-    {
-        return mainPageFancyBoxIFrame;
-    }
-
-    public WebElement getMainPageBeInformed()
-    {
-        return mainPageBeInformed;
-    }
-
     public List<WebElement> getSliderNext()
     {
         return sliderNext;
     }
 
-    public WebElement getActiveSliderImage()
+    public WebElement getName()
     {
-        return activeSliderImage;
+        return CustomerName;
     }
+    public WebElement getSurname()
+    {
+        return CustomerSurname;
+    }
+    public WebElement getTelephone()
+    {
+        return CustomerTelephone;
+    }
+
+    public WebElement getSendButton()
+    {
+        return senderButton;
+    }
+
+
 }

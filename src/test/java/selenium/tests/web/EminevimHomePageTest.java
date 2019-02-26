@@ -11,10 +11,13 @@ import org.junit.jupiter.api.DisplayName;
 import selenium.pages.UrlFactory;
 import selenium.pages.web.MainPageWebPage;
 
+import java.io.Console;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@DisplayName("NYX Costemic Main Page - Web")
+@DisplayName("Eminevim Main Page - Web")
 public class EminevimHomePageTest extends AbstractEminevimTest
 {
     private static Logger logger = Logger.getLogger(EminevimHomePageTest.class);
@@ -27,9 +30,9 @@ public class EminevimHomePageTest extends AbstractEminevimTest
         super.init(true);
         mainPage = new MainPageWebPage(driver);
     }
-
-    @Test
-    @Description("Anasayfa daki png lerin larının 200 (ok) olduğunun kontrolü")
+/*
+   @Test
+   @Description("Anasayfa daki png lerin larının 200 (ok) olduğunun kontrolü")
     public void testHomePageLoadPNG()
     {
         navigateToURL(UrlFactory.MAIN_URL);
@@ -42,5 +45,24 @@ public class EminevimHomePageTest extends AbstractEminevimTest
                     Assert.assertEquals("This image not load " + png.getRequest().getUrl(), 200, png.getResponse().getStatus());
                 });
     }
+ */
+    @Test
+    @Description("Anasayfa daki formların kontrolü")
+    public void HomePageFormControl() throws InterruptedException {
+        int length = 9;
+        String chars = "0123456789";
+        String str = new Random().ints(length, 0, chars.length())
+                .mapToObj(i -> "" + chars.charAt(i))
+                .collect(Collectors.joining());
 
+        navigateToURL(UrlFactory.MAIN_URL);
+        click(mainPage.getName());
+        sendKeys(mainPage.getName(), "AutomatedTestUser");
+        click(mainPage.getSurname());
+        sendKeys(mainPage.getSurname(),"AutomatedTestUser");
+        click(mainPage.getTelephone());
+        sendKeys(mainPage.getTelephone(),str);
+        click(mainPage.getSendButton());
+        Thread.sleep(3000);
+    }
 }
