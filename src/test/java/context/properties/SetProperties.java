@@ -38,6 +38,6 @@ public class SetProperties {
         prop.setProperty("galen.report.path", System.getProperty("user.dir") + "\\target\\GalenLayoutReports/");
         prop.setProperty("take.a.video", System.getProperties().getProperty("take.a.video"));
         prop.setProperty("browser.type", System.getProperties().getProperty("browser.type"));
-        prop.store(output, "NYX Costemics Regression Test Configuration");
+        prop.store(output, "Eminevim Regression Test Configuration");
     }
 }
